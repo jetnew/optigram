@@ -64,11 +64,9 @@ Solutions/ mitigation methods
 * Resource efficiency guide for new home owners
 """
 
-header4 = "Monitoring Energy Consumption"
 section4 = """The utility bill shows the electricity consumption (kWh) over the past 6 months. For more accurate monitoring of appliance’s energy consumption and track consumption over time, use an energy monitor such as ETrack or Wattson (Green Future).
 """
 
-header5 = "Interactive Energy Calculator"
 section5 = """
 General idea
 * Users will be able to see how much cost is incurred, electricity consumed and carbon emissions produced based on how many air conditioners they own and the hours they are using them at home. 
@@ -98,3 +96,43 @@ Variables to consider
         * Private Apartments and Condominiums
         * Landed Properties
 """
+
+area = ["Ang Mo Kio",
+"Bedok",
+"Bishan",
+"Bukit Batok",
+"Bukit Merah",
+"Bukit Panjang",
+"Bukit Timah",
+"Choa Chu Kang",
+"Clementi",
+"Geylang",
+"Hougang",
+"Jurong East",
+"Jurong West",
+"Kallang",
+"Marine Parade",
+"Novena",
+"Outram",
+"Pasir Ris",
+"Punggol",
+"Queenstown",
+"Sembawang",
+"Sengkang",
+"Serangoon",
+"Tampines",
+"Tanglin",
+"Toa Payoh",
+"Woodlands",
+"Yishun",
+"Others",
+]
+
+housing_type =[
+    "1- and 2- Room Flats",
+    "3-Room Flats",
+    "4-Room Flats",
+    "5-Room and Executive Flats",
+    "Condominiums and Other Apartments",
+    "Landed Properties",
+]
