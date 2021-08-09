@@ -1,12 +1,12 @@
 txt_title = "Optigram 2021 - Your expensive relationship with energy"
 
 header1 = "A Climate Emergency"
-section1 = """51 billion tons of greenhouse gases are added to the atmosphere yearly and zero is the goal we need to aim for to stop global warming and avoid the worst effects of climate change.
+section1a = """51 billion tons of greenhouse gases are added to the atmosphere yearly and zero is the goal we need to aim for to stop global warming and avoid the worst effects of climate change.
 Carbon emissions (CO2) are the #1 driver of global warming, and the #1 source of carbon emissions is fossil fuel burning for energy consumption.
 In 2018, energy consumption from oil is the greatest by far (4M ktoe), more than double from electricity (2ktoe) (iea.org).
-Global Energy Consumption (left) and Global CO2 Emissions by Energy Source (right) (iea.org)
+Global Energy Consumption (left) and Global CO2 Emissions by Energy Source (right) (iea.org)"""
 
-Since CO2 emissions increase proportionately with energy consumption, the extent of energy consumption is tightly linked to carbon emissions over time. (iea.org, climate.nasa.gov)
+section1b = """Since CO2 emissions increase proportionately with energy consumption, the extent of energy consumption is tightly linked to carbon emissions over time. (iea.org, climate.nasa.gov)
 
 Recent CO2 emissions reached an all-time high across history of 33K metric tonnes of CO2. To understand the sheer severity of this, researchers have shown that for hundreds of thousands of years, atmospheric CO2 has never been above 300ppm, while current levels have already reached above 400ppm. CO2 emissions have always highly correlated with global temperatures throughout history.
 CO2 emissions influence global temperatures through the greenhouse effect. Greenhouse gases such as CO2 in the atmosphere trap heat from the sun that would otherwise escape into space. However, as more greenhouse gases accumulate, more heat is trapped and global warming results.

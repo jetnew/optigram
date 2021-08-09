@@ -5,7 +5,10 @@ from texts import *
 st.title(txt_title)
 
 st.header(header1)
-st.markdown(section1)
+st.markdown(section1a)
+st.image('images/global_energy_consumption.png')
+st.image('images/global_co2_emissions.png')
+st.markdown(section1b)
 
 st.header(header2)
 st.markdown(section2)
@@ -52,4 +55,4 @@ st.text("Average Household Size")
 household_size = [3.3, 3.3, 4.3, 2.9]
 st.bar_chart(household_size)
 
-st.markdown(section5)
+df_population_size = pd.read_excel("population_size.xlsx")
