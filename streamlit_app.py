@@ -24,6 +24,17 @@ residential_area = st.selectbox('Select your residential area:', area)
 dwelling_type = st.selectbox('Select your housing type:', housing_type)
 
 
+"""
+Bargraph: Neighbourhood -> Housing type electricity consumption
+
+
+Slider for no. aircon hours - no. fan hours
+Default: User-specified
+
+Bar Chart: CO2 emissions saved and cost savings 
+"""
+
+
 df_electricity = pd.read_excel("electricity_by_area_and_building.xlsx", index_col="Area")
 if dwelling_type == "Condominiums and Other Apartments" or dwelling_type == "Landed Properties":
     residential_area = "Overall"
@@ -39,8 +50,6 @@ fan_car_distance = fan_co2_monthly / 0.251087632
 st.text(f"CO2 emitted per month (kg): {fan_co2_monthly:.2f}")
 st.text(f"The amount of CO2 produced is equivalent to that of a car that drove {fan_car_distance:.2f} km!")
 st.text(f"The monthly cost of your fan is: S${fan_cost_monthly:.2f}!")
-
-
 st.text("Aircon")
 num_aircon = st.number_input("No. of aircons")
 num_aircon_hours = st.number_input("No. of aircon hours used per day")
