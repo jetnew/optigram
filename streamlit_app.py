@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 from texts import *
+import altair as alt
 
 def compute_usage(device, num, num_hours):
     if device == "aircon":
@@ -15,29 +16,68 @@ def compute_usage(device, num, num_hours):
 
 st.title(txt_title)
 
-st.header(header1)
+# Part 1 
+st.header(header1a)
 st.markdown(section1a)
 st.image('images/global_energy_consumption.png')
+st.caption(caption1)
+st.caption(citation1)
 st.image('images/global_co2_emissions.png')
+st.caption(caption2)
+st.caption(citation2)
 st.markdown(section1b)
+st.image('images/co2_over_history.png')
+st.caption(caption3)
+st.caption(citation3)
+st.markdown(section1c)
+
+st.header(header1b)
+st.markdown(section1d)
+st.image('images/greenhouse_effect.png')
+st.caption(caption4)
+st.caption(citation4)
+st.image('images/co2_temperature_over_history.png')
+st.caption(caption5)
+st.caption(citation5)
+st.markdown(section1e)
+
+# Part 2
 
 st.header(header2)
 st.markdown(section2)
+st.image('images/total_electricity_households.png')
+st.caption(caption6)
+st.caption(citation6)
+
+# Part 3
 
 st.header(header3)
 st.markdown(section3)
 
-st.header("Monitoring Energy Consumption")
-st.markdown(section4)
-
-st.header("Interactive Energy Calculator")
 residential_area = st.selectbox('Select your residential area:', area)
 dwelling_type = st.selectbox('Select your housing type:', housing_type)
 
 
 # Bargraph: Neighbourhood -> Housing type electricity consumption
+# Note: Use of wrong excel sheet
 agg_elec = pd.read_excel("aggregated_electricity.xlsx", index_col='Type')
 st.bar_chart(agg_elec['Usage'])
+
+st.caption(caption7)
+st.caption(citation7)
+
+# Part 4
+st.header(header4)
+st.markdown(section4)
+st.image('images/household_energy_profile.png')
+st.caption(caption8)
+st.caption(citation8)
+
+st.subheader(header4a)
+st.markdown(section4a)
+
+st.header(header4b)
+st.markdown(section4b)
 
 # Slider for no. aircon hours - no. fan hours
 # Default: User-specified
@@ -49,6 +89,8 @@ aircon_co2_monthly, aircon_cost_monthly, aircon_car_distance = compute_usage("ai
 monthly_cost = fan_cost_monthly + aircon_cost_monthly
 monthly_co2 = fan_co2_monthly + aircon_co2_monthly
 st.text(f"YOU CURRENTLY SPEND: ${monthly_cost:.2f} A MONTH!")
+
+st.markdown(section4c)
 hours_diff = st.slider("No. of aircon hours to switch to fan hours", 0, curr_aircon_hours, value=4)
 fan_co2_monthly, fan_cost_monthly, fan_car_distance = compute_usage("fan", 1, hours_diff)
 aircon_co2_monthly, aircon_cost_monthly, aircon_car_distance = compute_usage("aircon", 1, hours_diff)
@@ -59,14 +101,21 @@ st.text(f"YOU NOW SPEND: ${new_monthly_cost:.2f}")
 st.text(f"YOU SAVE A GRAND TOTAL OF: ${cost_savings:.2f} A MONTH!")
 st.text(f"THAT'S EQUIVALENT TO {cost_savings/4} BUBBLE TEAS! :) (PER MONTH!!!)")
 
+
 st.bar_chart(pd.DataFrame(
     data={'data': [monthly_cost, new_monthly_cost]},
     index=["Monthly Cost", "Monthly Cost (New)"]))
+
+st.caption(caption9)
+
 
 st.bar_chart(pd.DataFrame(
     data={'data': [monthly_co2, new_monthly_co2]},
     index=["Monthly CO2", "Monthly CO2 (New)"]))
 
+st.caption(caption10)
+
+st.subheader(header4c)
 
 """
 Bar Chart: CO2 emissions saved and cost savings
@@ -103,3 +152,17 @@ household_size = [3.3, 3.3, 4.3, 2.9]
 st.bar_chart(household_size)
 
 df_population_size = pd.read_excel("population_size.xlsx")
+
+# Part 5
+
+st.header(header5)
+st.markdown(section5)
+
+# Part 6: References
+
+st.header(header6)
+st.markdown(section6)
+
+st.caption(footnotes1)
+st.caption(footnotes2)
+st.caption(footnotes3)
