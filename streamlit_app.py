@@ -68,7 +68,7 @@ dwelling_type = st.selectbox('Select your housing type:', housing_type)
 avg_elec_consumed = df_electricity[dwelling_type][residential_area]
 st.text(f"Average Electricty Consumed: {avg_elec_consumed:.2f} kWh")
 
-with st.beta_expander(f"Optional: Compare your monthly electricity usage with the average among {residential_area} {dwelling_type}!"):
+with st.expander(f"Optional: Compare your monthly electricity usage with the average among {residential_area} {dwelling_type}!"):
     user_avg_elec = st.number_input("How much electricity do you use a month? (kWh)")
 
     if dwelling_type == "Condominiums and Other Apartments" or dwelling_type == "Landed Properties":
