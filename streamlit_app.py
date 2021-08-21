@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from info import *
 import altair as alt
+import numpy as np
 
 # Import dataframes
 df_electricity = pd.read_excel("electricity_by_area_and_building.xlsx", index_col="Area")
 df_population_size = pd.read_excel("population_size.xlsx")
-agg_elec = pd.read_excel("aggregated_electricity.xlsx", index_col='Type')
+df_agg_elec = pd.read_excel("aggregated_electricity.xlsx")
 
 def compute_usage(device, num, num_hours):
     if device == "aircon":
@@ -95,8 +96,9 @@ with st.expander(f"Optional: Compare your monthly electricity usage with the ave
     }))
 
 st.markdown("This is the average electricty consumed by housing type:")
-st.bar_chart(agg_elec['Usage'])
-
+c = alt.Chart(df_agg_elec).mark_bar().encode(
+    x='Housing', y='Usage').properties(height=500)
+st.altair_chart(c, use_container_width=True)
 st.caption("Figure 7: Average Monthly Electricity Consumption by Planning Area & Housing Type in 2015")
 
 
@@ -134,15 +136,20 @@ new_monthly_co2 = fan_co2_monthly + aircon_co2_monthly
 st.markdown(f"You now spend ${new_monthly_cost:.2f}, and save a total of ${cost_savings:.2f} every month!")
 st.markdown(f"That's equivalent to {cost_savings/4:.0f} cups of bubble tea! :) (per month!)")
 
-st.bar_chart(pd.DataFrame(
-    data={'data': [monthly_cost, new_monthly_cost]},
-    index=["Monthly Cost", "Monthly Cost (New)"]))
+df_monthly_cost = pd.DataFrame({
+    'Before & After': ["Monthly Cost (Before)", "Monthly Cost (After)"],
+    'Monthly Cost ($)': [monthly_cost, new_monthly_cost]})
+c = alt.Chart(df_monthly_cost).mark_bar().encode(
+    x='Before & After', y='Monthly Cost ($)')
+st.altair_chart(c, use_container_width=True)
 st.caption("Figure 9: Monthly Savings in Electricity Cost")
 
-
-st.bar_chart(pd.DataFrame(
-    data={'data': [monthly_co2, new_monthly_co2]},
-    index=["Monthly CO2", "Monthly CO2 (New)"]))
+df_monthly_co2 = pd.DataFrame({
+    'Before & After': ["Monthly CO2", "Monthly CO2 (New)"],
+    'Monthly CO2': [monthly_co2, new_monthly_co2]})
+c = alt.Chart(df_monthly_co2).mark_bar().encode(
+    x='Before & After', y='Monthly CO2')
+st.altair_chart(c, use_container_width=True)
 st.caption("Figure 10: Monthly Reduction in CO2 emissions")
 
 # What happens if every household in Singapore swaps out some aircon hours for fan hours?
