@@ -25,8 +25,9 @@ def compute_usage(device, num, num_hours):
     return co2_monthly, cost_monthly, car_distance
 
 
-st.title("Your expensive relationship with energy")
+st.title("Your Expensive Relationship With Energy")
 
+st.caption("Authors: He Shiying and New Jun Jie")
 
 # ========== Part 1: Introduction to the Climate Emergency ==========
 
@@ -139,7 +140,7 @@ aircon_co2_monthly, aircon_cost_monthly, aircon_car_distance = compute_usage("ai
 cost_savings = abs(fan_cost_monthly - aircon_cost_monthly)
 new_monthly_cost = monthly_cost - cost_savings
 new_monthly_co2 = monthly_co2 - fan_co2_monthly - aircon_co2_monthly
-st.success(f"You now spend ${new_monthly_cost:.2f}, and save a total of **${cost_savings:.2f}** every month! That's equivalent to {cost_savings/4:.0f} cups of bubble tea! :) (per month!)")
+st.success(f"You now spend ${new_monthly_cost:.2f}, and save a total of **${cost_savings:.2f}** every month! That's equivalent to {cost_savings/4:.0f} cup(s) of bubble tea! :) (per month!)")
 
 c1, c2 = st.columns(2)
 df_monthly_cost = pd.DataFrame({
@@ -207,7 +208,7 @@ st.markdown("We have shared two nifty tricks you can adopt to mitigate your own 
 st.subheader("Write to your leaders.")
 st.markdown("Make phone calls to your [local government representatives](https://www.gatesnotes.com/Energy/What-you-can-do-to-fight-climate-change)- ask them about their stance on climate change and what they are doing about it. Raise your concerns about current policies in place and let them know that their actions will influence your voting decisions.")
 
-st.subheader("Support climate initiatives.)")
+st.subheader("Support climate initiatives.")
 st.markdown("Adopt a tree as part of [WWF India’s Adopt a Tree programme](https://join.wwfindia.org/adopt-a-tree/), offset your carbon footprint by removing carbon dioxide from the atmosphere with [Climeworks](​​https://climeworks.com/subscriptions) or destroying refrigerants in the air with [Tradewater](https://tradewater.us/offsetnow).")
 
 st.subheader("Vote with your dollar.")
@@ -221,6 +222,7 @@ st.caption("Monthly cost savings are based on an electricity tariff of $0.27 per
 
 st.header("References")
 
+st.subheader("Figures")
 st.caption("Figure 1 Source: International Energy Agency. (2020). Total final consumption of energy by source, World 1990-2018. IEA. https://www.iea.org/data-and-statistics/data-tables")
 st.caption("Figure 2 Source: International Energy Agency. (2020). CO2 emissions by energy source, World 1990-2018. IEA. https://www.iea.org/data-and-statistics/data-tables")
 st.caption("Figure 3 Source: NASA. (2013). Graphic: The relentless rise of carbon dioxide. Climate Change: Vital Signs of the Planet. https://climate.nasa.gov/climate_resources/24/graphic-the-relentless-rise-of-carbon-dioxide")
@@ -229,3 +231,19 @@ st.caption("Figure 5 Source: Bhatia, A. (2020). Your Personal Carbon History. Pa
 st.caption("Figure 6 Source: The Energy Market Authority. (2018). Singapore Energy Statistics 2018. https://www.ema.gov.sg/cmsmedia/Publications_and_Statistics/Publications/SES18/Publication_Singapore_Energy_Statistics_2018.pdf")
 st.caption("Figure 7 Source: Enterprise Singapore and Energy Market Authority (EMA) (2020). Singapore Energy Statistics. https://www.ema.gov.sg/Singapore_Energy_Statistics.aspx")
 st.caption("Figure 8 Source: Energy Efficient Singapore. (2019). Home Energy Audit. Energy Efficient Singapore. https://www.e2singapore.gov.sg/overview/households/saving-energy-at-home/HEA")
+
+st.subheader("Datasets and Other Information")
+st.caption("Bhatia, A. (2020). Your Personal Carbon History. Parametric Press: The Climate Issue. https://parametric.press/issue-02/carbon-history/")
+st.caption("Energy Efficient Singapore. (2019). Home Energy Audit. Energy Efficient Singapore. https://www.e2singapore.gov.sg/overview/households/saving-energy-at-home/HEA")
+st.caption("Energy Market Authority. (2019a). Energy Consumption Chapter 03. Singapore Energy Statistics. https://www.ema.gov.sg/singapore-energy-statistics/Ch03/index3")
+st.caption("Energy Market Authority. (2019b). Energy Transformation Chapter 02. Singapore Energy Statistics. https://www.ema.gov.sg/singapore-energy-statistics/Ch02/index2")
+st.caption("International Energy Agency. (2020a). CO2 emissions by energy source, World 1990-2018. IEA. https://www.iea.org/data-and-statistics/data-tables")
+st.caption("International Energy Agency. (2020b). Total final consumption of energy by source, World 1990-2018. IEA. https://www.iea.org/data-and-statistics/data-tables")
+st.caption("International Energy Agency. (2020c, February 11). Global CO2 emissions in 2019 – Analysis. IEA. https://www.iea.org/articles/global-co2-emissions-in-2019")
+st.caption("International Energy Agency. (2021). Net Zero by 2050—A Roadmap for the Global Energy Sector (p. 224). IEA. https://iea.blob.core.windows.net/assets/beceb956-0dcf-4d73-89fe-1310e3046d68/NetZeroby2050-ARoadmapfortheGlobalEnergySector_CORR.pdf")
+st.caption("Lindsey, R. (2020, August 14). Climate Change: Atmospheric Carbon Dioxide. Climate.Gov. https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide")
+st.caption("NASA. (2013). Graphic: The relentless rise of carbon dioxide. Climate Change: Vital Signs of the Planet. https://climate.nasa.gov/climate_resources/24/graphic-the-relentless-rise-of-carbon-dioxide")
+st.caption("National Environment Agency. (2020, November). NEA’s Go Green Tips. Clean & Green Singapore. https://www.cgs.gov.sg/what-we-do/programmes/eco-music-challenge/let%27s-go-green/nea%27s-go-green-tips")
+st.caption("NRDC, & Denchak, M. (2019, July). Greenhouse Effect 101. NRDC. https://www.nrdc.org/stories/greenhouse-effect-101")
+st.caption("The Energy Market Authority. (2018). Singapore Energy Statistics 2018. https://www.ema.gov.sg/cmsmedia/Publications_and_Statistics/Publications/SES18/Publication_Singapore_Energy_Statistics_2018.pdf")
+st.caption("United States Environmental Protection Agency. (2015, December 12). Overview of Greenhouse Gases [Overviews and Factsheets]. https://www.epa.gov/ghgemissions/overview-greenhouse-gases")
