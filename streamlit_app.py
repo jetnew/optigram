@@ -78,7 +78,7 @@ residential_area = st.selectbox('Select your residential area:', area)
 dwelling_type = st.selectbox('Select your housing type:', housing_type)
 
 avg_elec_consumed = df_electricity[dwelling_type][residential_area]
-st.error(f"Average Electricty Consumed: {avg_elec_consumed:.2f} kWh")
+st.error(f"Average Electricity Consumed: {avg_elec_consumed:.2f} kWh")
 
 with st.expander(f"Optional: Compare your monthly electricity usage with the average among {residential_area} {dwelling_type}!"):
     user_avg_elec = st.number_input("How much electricity do you use a month? (kWh)")
@@ -88,11 +88,12 @@ with st.expander(f"Optional: Compare your monthly electricity usage with the ave
         st.info(f"Note: There is only available average data for {dwelling_type}.")
 
     avg_elec_consumed = df_electricity[dwelling_type][residential_area]
-    st.markdown(f"Average Electricty Consumed: **{avg_elec_consumed:.2f} kWh**")
-    st.bar_chart(pd.DataFrame({
-        'data': [user_avg_elec, avg_elec_consumed],
-        'index': ["Your monthly electricity usage", "Average monthly electricity usage"]
-    }))
+    st.markdown(f"Average Electricity Consumed: **{avg_elec_consumed:.2f} kWh**")
+    c = alt.Chart(pd.DataFrame({
+        'Electricity Consumed': [user_avg_elec, avg_elec_consumed],
+        ' ': ["Your monthly electricity usage", "Average monthly electricity usage"],
+    })).mark_bar().encode(x=' ', y='Electricity Consumed').properties(height=350)
+    st.altair_chart(c, use_container_width=True)
 
 st.markdown("This is the average electricty consumed by housing type:")
 c = alt.Chart(df_agg_elec).mark_bar().encode(
@@ -116,11 +117,13 @@ st.header("Tip 1: Swap out some aircon hours with fan hours.")
 st.markdown("Did you know that an air conditioner (aircon for short) utilises up to 8 times more electricity than a floor fan? On average, Singaporeans turn on their aircons for 6 hours a day!")
 st.warning("Let’s calculate how much you are currently spending.")
 
-num_fans = int(st.number_input("No. of fans:", value=2))
-unit_fan_hours = int(st.number_input("Hours of daily usage per fan:", value=3))
+c1, c2 = st.columns(2)
+num_fans = int(c1.number_input("No. of fans:", value=2))
+unit_fan_hours = int(c2.number_input("Hours of daily usage per fan:", value=3))
 curr_fan_hours = num_fans * unit_fan_hours
-num_aircon = int(st.number_input("No. of aircons:", value=2))
-unit_aircon_hours = int(st.number_input("Hours of daily usage per aircon:", value=3))
+c1, c2 = st.columns(2)
+num_aircon = int(c1.number_input("No. of aircons:", value=2))
+unit_aircon_hours = int(c2.number_input("Hours of daily usage per aircon:", value=3))
 curr_aircon_hours = num_aircon * unit_aircon_hours
 fan_co2_monthly, fan_cost_monthly, fan_car_distance = compute_usage("fan", 1, curr_fan_hours)
 aircon_co2_monthly, aircon_cost_monthly, aircon_car_distance = compute_usage("aircon", 1, curr_aircon_hours)
@@ -138,12 +141,13 @@ new_monthly_cost = monthly_cost - cost_savings
 new_monthly_co2 = monthly_co2 - fan_co2_monthly - aircon_co2_monthly
 st.success(f"You now spend ${new_monthly_cost:.2f}, and save a total of **${cost_savings:.2f}** every month! That's equivalent to {cost_savings/4:.0f} cups of bubble tea! :) (per month!)")
 
+c1, c2 = st.columns(2)
 df_monthly_cost = pd.DataFrame({
     'Before & After': ["Monthly Cost", "Monthly Cost (After)"],
     'Monthly Cost ($)': [monthly_cost, new_monthly_cost]})
 c = alt.Chart(df_monthly_cost).mark_bar().encode(
     x='Before & After', y='Monthly Cost ($)')
-st.altair_chart(c, use_container_width=True)
+c1.altair_chart(c, use_container_width=True)
 st.caption("Figure 9: Monthly Savings in Electricity Cost")
 
 df_monthly_co2 = pd.DataFrame({
@@ -151,7 +155,7 @@ df_monthly_co2 = pd.DataFrame({
     'Monthly CO2': [monthly_co2, new_monthly_co2]})
 c = alt.Chart(df_monthly_co2).mark_bar().encode(
     x='Before & After', y='Monthly CO2')
-st.altair_chart(c, use_container_width=True)
+c2.altair_chart(c, use_container_width=True)
 st.caption("Figure 10: Monthly Reduction in CO2 emissions")
 
 # What happens if every household in Singapore swaps out some aircon hours for fan hours?
@@ -166,11 +170,13 @@ st.header("Tip 2: Switch out your bulbs.")
 st.markdown("How you choose to light up your home matters. Did you know that a fluorescent lamp uses only 13W of electricity while an incandescent bulb uses 60W? Choosing energy-efficient light bulbs to save up to [$30 per bulb per year](https://www.cgs.gov.sg/what-we-do/programmes/eco-music-challenge/let%27s-go-green/nea%27s-go-green-tips).")
 st.warning("Let’s calculate how much you are currently spending.")
 
-num_f = int(st.number_input("No. of fluorescent bulbs:", value=5))
-f_hours = int(st.number_input("Hours of usage per fluorescent bulb:", value=10))
+c1, c2 = st.columns(2)
+num_f = int(c1.number_input("No. of fluorescent bulbs:", value=5))
+f_hours = int(c2.number_input("Hours of usage per fluorescent bulb:", value=10))
 curr_f_hours = num_f * f_hours
-num_i = int(st.number_input("No. of incandescent bulbs:", value=5))
-i_hours = int(st.number_input("Hours of usage per incandescent bulb:", value=10))
+c1, c2 = st.columns(2)
+num_i = int(c1.number_input("No. of incandescent bulbs:", value=5))
+i_hours = int(c2.number_input("Hours of usage per incandescent bulb:", value=10))
 curr_i_hours = num_i * i_hours
 f_co2_monthly, f_cost_monthly, f_car_distance = compute_usage("fluorescent", 1, curr_f_hours)
 i_co2_monthly, i_cost_monthly, i_car_distance = compute_usage("incandescent", 1, curr_i_hours)
@@ -187,16 +193,25 @@ cost_savings = abs(f_cost_monthly - i_cost_monthly)
 new_monthly_cost = monthly_cost - cost_savings
 new_monthly_co2 = monthly_co2 + f_co2_monthly - i_co2_monthly
 st.success(f"You now spend ${new_monthly_cost:.2f}, and save a total of **${cost_savings:.2f}** every month!")
-st.success(f"You also reduce CO2 emissions from {monthly_co2:.2f} to **{new_monthly_co2:.2f} kg** of CO2 emissions per month!")
+st.success(f"You also reduce CO2 emissions from {monthly_co2:.2f} kg to **{new_monthly_co2:.2f} kg** of CO2 emissions per month!")
 
 st.success(f"If everyone was as honourable as you, the whole of Singapore would save **${cost_savings * sg_population_size:,.2f}** and cut down **{(monthly_co2 - new_monthly_co2) * sg_population_size:,.2f} kg** of CO2 emissions per month!")
 
 
 # ========== Part 6: Conclusion ==========
 
-st.header("Conclusion")
+st.header("Conclusion: Don’t stop here.")
 
-st.markdown("We have shared two nifty tricks you can adopt to mitigate your own personal impact on climate change. There is of course, more you can do...")
+st.markdown("We have shared two nifty tricks you can adopt to mitigate your own personal impact on climate change: switching out your aircon hours for fan hours, and replacing your incandescent bulbs with fluorescent ones. There is, of course, more you can do. ")
+
+st.subheader("Write to your leaders.")
+st.markdown("Make phone calls to your [local government representatives](https://www.gatesnotes.com/Energy/What-you-can-do-to-fight-climate-change)- ask them about their stance on climate change and what they are doing about it. Raise your concerns about current policies in place and let them know that their actions will influence your voting decisions.")
+
+st.subheader("Support climate initiatives.)")
+st.markdown("Adopt a tree as part of [WWF India’s Adopt a Tree programme](https://join.wwfindia.org/adopt-a-tree/), offset your carbon footprint by removing carbon dioxide from the atmosphere with [Climeworks](​​https://climeworks.com/subscriptions) or destroying refrigerants in the air with [Tradewater](https://tradewater.us/offsetnow).")
+
+st.subheader("Vote with your dollar.")
+st.markdown("The market is ruled by supply and demand. As a consumer, you have the power to influence what brands produce. Opt for a [plant-based burger next time](https://www.globalcitizen.org/en/content/which-vegan-burger-best-environment/),  buy energy-efficient appliances, and purchase from sustainable brands. Supporting sustainable products goes a long way to signal to brands that there is a market for them.")
 
 st.header("Footnotes")
 
